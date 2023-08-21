@@ -1,7 +1,7 @@
-from datetime import datetime, timedelta
-from typing import Annotated, Dict, Union
 
-from fastapi import Depends, FastAPI, Form, HTTPException, status
+from typing import Annotated, Dict
+
+from fastapi import FastAPI, Form, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 
 from auth_ops import generate_authorziation_code
