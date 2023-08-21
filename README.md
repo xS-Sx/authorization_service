@@ -1,12 +1,12 @@
 # Authorization Service
-This project is a prototype of authorization service used to guard specific API resource behind. It launches servers
-* [client](client_server/)
-* [authorization](auth_server/)
-* [API resource](api_server/)
+This project is a prototype of authorization service used to guard specific API resource behind. It launches
+* [client_server](client_server/)
+* [auth_server](auth_server/)
+* [api_server](api_server/)
 
-to simulate the server side application oauth2 authorization flow. More reference can be found [here](https://www.oauth.com/oauth2-servers/server-side-apps/)
+to simulate the server side application oauth2 authorization flow. More details regard to Oauth2 authorization flow can be found [here](https://www.oauth.com/oauth2-servers/server-side-apps/)
 
-## Flow to retrieve 
+## Flow to retrieve resource in api_server
 ![authorization flow chart](docs/flow.png)
 note: username and password are both "admin" for authorization
 
