@@ -1,5 +1,9 @@
 # Authorization Service
-This project is a prototype of authorization service used to guard specific API resource behind. It launches
+## Background:
+A client would like to access the Resource API behind an Authroization Server, therefore, the client must first authenticate with the Authroization Server in order to retrieve information from the Resource API .
+
+## Description
+This project is a Python prototype simulating http(s) requests and responses between both client, Resource API. The authorization service is used to guard specific API resource behind. This project has three servers:
 * [client_server](client_server/)
 * [auth_server](auth_server/)
 * [api_server](api_server/)
