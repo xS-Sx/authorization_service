@@ -68,6 +68,7 @@ async def get_access_token(code: str | None = None):
     global example_api_access_token
 
     if code is not None:
+        resp = None
         try:
             resp = requests.post(    
                 TOKEN_ENDPOINT,
@@ -78,20 +79,20 @@ async def get_access_token(code: str | None = None):
                     "client_id": CLIENT_ID,
                     "client_secret": CLIENT_SECRET
                 }
-            )
-
-            if resp.status_code == 200:
-                example_api_access_token = resp.json().get("access_token")
-                return RedirectResponse(app.url_path_for("read_api_resource"))
-            else:
-                raise HTTPException(
-                    status_code=500,
-                    detail="Fail to acquire access from auth_server"
-                )
+            )      
         except:
             raise HTTPException(
                 status_code=500,
                 detail="Fail to get response from auth_server"
+            )
+        
+        if resp and resp.status_code == 200:
+                example_api_access_token = resp.json().get("access_token")
+                return RedirectResponse(app.url_path_for("read_api_resource"))
+        else:
+            raise HTTPException(
+                status_code=500,
+                detail="Fail to acquire access from auth_server"
             )
 
 
@@ -103,23 +104,25 @@ async def read_api_resource():
     """
 
     if example_api_access_token is not None:
+        resp = None
         try:
             resp = requests.get(RES_ENDPOINT, headers = {
                 "Authorization": f"Bearer {example_api_access_token}"
             })
-            if resp.status_code == 200:
-                return resp.json()
-            else:
-                raise HTTPException(
-                    status_code=resp.status_code,
-                    detail="Fail to retrive api resource"
-                )
         except:
             raise HTTPException(
                 status_code=500,
                 detail=(
                     "Fail to retrive api resource. " "api_server may be down"
                 )
+            )
+
+        if resp and resp.status_code == 200:
+                return resp.json()
+        else:
+            raise HTTPException(
+                status_code=resp.status_code,
+                detail="Fail to retrive api resource"
             )
     else:
         return RedirectResponse(app.url_path_for("get_authorization_token"))
